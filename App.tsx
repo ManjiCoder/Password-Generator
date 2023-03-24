@@ -19,12 +19,36 @@ const App = () => {
   const [isPassGenerated, setIsPassGenerated] = useState(false);
   const [lowerCase, setLowerCase] = useState(true);
   const [upperCase, setUpperCase] = useState(false);
-  const [number, setNumber] = useState(false);
+  const [numbers, setNumbers] = useState(false);
   const [symbols, setSymbols] = useState(false);
 
   // Functions
+
+  // GeneratedPasswordString Logic
   const generatedPasswordString = (passwordLength: number) => {
-    //
+    let characterList = '';
+    const upperCaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowerCaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const digitalChars = '0123456789';
+    const specialChars = '`!@#$%^&*()_+';
+
+    if (upperCase) {
+      characterList += upperCaseChars;
+    }
+    if (lowerCase) {
+      characterList += lowerCaseChars;
+    }
+    if (numbers) {
+      characterList += digitalChars;
+    }
+    if (symbols) {
+      characterList += specialChars;
+    }
+
+    const passwordResult = createPassword(characterList, passwordLength);
+
+    setPassword(passwordResult);
+    setIsPassGenerated(true);
   };
 
   // Bussiness Logic
@@ -37,9 +61,16 @@ const App = () => {
     return result;
   };
 
+  // Resetting the State
   const resetPasswordState = () => {
-    //
+    setPassword('');
+    setIsPassGenerated(false);
+    setLowerCase(true);
+    setUpperCase(false);
+    setNumbers(false);
+    setSymbols(false);
   };
+
   return (
     <View style={styles.container}>
       <Text>App</Text>
