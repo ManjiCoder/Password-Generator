@@ -2,6 +2,7 @@
 import {
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +14,8 @@ import {Formik} from 'formik';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 // Form validation
 import * as Yup from 'yup';
+
+const mainColor = '#F44336';
 
 const App = () => {
   // Yup Schema like Mongoose Model Schema like Express Validator
@@ -82,6 +85,7 @@ const App = () => {
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
+      <StatusBar backgroundColor={mainColor} />
       <SafeAreaView style={styles.appContainer}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>Password Generator</Text>
@@ -183,7 +187,9 @@ const App = () => {
           </Formik>
 
           {isPassGenerated ? (
-            <View style={styles.outputWrapper}>
+            <View style={[styles.card, styles.cardElevated]}>
+              <Text style={styles.subTitle}>Result:</Text>
+              <Text style={styles.description}>Long press to copy</Text>
               <Text selectable style={styles.generatedPassword}>
                 {password}
               </Text>
@@ -201,15 +207,6 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
   },
-  outputWrapper: {
-    marginVertical: 30,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 2,
-    borderRadius: 7,
-    elevation: 3,
-  },
   formContainer: {
     margin: 8,
     padding: 8,
@@ -218,6 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '600',
     marginBottom: 15,
+    color: mainColor,
   },
   subTitle: {
     fontSize: 26,
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 12,
-    color: '#ff0d10',
+    color: 'gold',
   },
   formActions: {
     flexDirection: 'row',
@@ -284,6 +282,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 6,
     marginHorizontal: 12,
+    marginVertical: 20,
   },
   cardElevated: {
     backgroundColor: '#ffffff',
